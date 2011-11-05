@@ -1,7 +1,8 @@
 class ShortLink < ActiveRecord::Base
   before_save :attach_short_code
-
   BASE_URL = "http://obyk.us/"
+
+  has_many :clicks
 
   def ShortLink.get_short_code(full_url, length = 5)
     md5 = Digest::MD5.hexdigest("#{full_url}#{Time.now.to_s}")

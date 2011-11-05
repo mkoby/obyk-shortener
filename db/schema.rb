@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111104231649) do
+ActiveRecord::Schema.define(:version => 20111105200651) do
+
+  create_table "clicks", :force => true do |t|
+    t.integer  "short_link_id"
+    t.string   "referrer_host"
+    t.string   "referrer_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "clicks", ["short_link_id"], :name => "index_clicks_on_short_link_id"
 
   create_table "short_links", :force => true do |t|
     t.string   "full_link"

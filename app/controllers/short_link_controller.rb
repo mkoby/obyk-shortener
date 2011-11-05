@@ -25,7 +25,10 @@ class ShortLinkController < ApplicationController
 
   def access
     @short_link = ShortLink.find_by_short_code(params[:short_code])
+
     if @short_link
+      referrer_uri = URI(request.referer.to_s)
+      Click.create(:short_link => @short_link, :referrer_host => referrer_uri.host, :referrer_path => referrer_uri.path)
       redirect_to(@short_link.full_link)
     end
   end

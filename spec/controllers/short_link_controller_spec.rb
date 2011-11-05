@@ -39,12 +39,15 @@ describe ShortLinkController do
   describe "GET 'access'" do
     before(:each) do
       @short_link = ShortLink.create(:full_link => "http://www.mkoby.com")
+      get :access, :short_code => @short_link.short_code
     end
 
     it "returns http redirect" do
-      get :access, :short_code => @short_link.short_code
       response.should be_redirect
     end
+
+    subject { assigns(:short_link) }
+    its(:clicks) { should_not be_empty }
   end
 
 end
