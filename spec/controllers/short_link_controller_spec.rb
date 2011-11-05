@@ -37,17 +37,30 @@ describe ShortLinkController do
   end
 
   describe "GET 'access'" do
-    before(:each) do
-      @short_link = ShortLink.create(:full_link => "http://www.mkoby.com")
-      get :access, :short_code => @short_link.short_code
+    context "with a good short link" do
+      before(:each) do
+        @short_link = ShortLink.create(:full_link => "http://www.mkoby.com")
+        get :access, :short_code => @short_link.short_code
+      end
+
+      it "returns http redirect" do
+        response.should be_redirect
+      end
+
+      subject { assigns(:short_link) }
+      its(:clicks) { should_not be_empty }
     end
 
-    it "returns http redirect" do
-      response.should be_redirect
-    end
+    context "with a bad short_link" do
+      before(:each) do
+        get :access, :short_code => 99955
+      end
 
-    subject { assigns(:short_link) }
-    its(:clicks) { should_not be_empty }
+      it "should render not_found template" do
+        response.should render_template(:not_found)
+      end
+
+    end
   end
 
 end
