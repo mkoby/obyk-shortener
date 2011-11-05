@@ -1,7 +1,12 @@
-<h1>ObyK Shortener</h1>
-<%= form_for(@short_link, :url => {:action => "create"}) do |f| %>
-	<%= f.label :full_link %>
-	<%= f.text_field :full_link %>
-	<%= f.submit %>
-<% end %>
+<div style="margin-left:auto; margin-right:auto; width:20%; text-align:center;">
+  <h1>ObyK Shortener</h1>
+  Because shorter links are more fun
+  <%= form_for(@short_link, :url => {:action => "create"}) do |f| %>
+  	  <%= f.text_field :full_link, :style => "margin-top: 20px; width: 255px;" %><br />
+	  <%= f.submit "Shorten" %><br />
+  <% end %>
+</div>
+
+<div id="short-link-display">
+</div>
 
