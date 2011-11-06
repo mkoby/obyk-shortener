@@ -5,8 +5,10 @@ class ShortLink < ActiveRecord::Base
   has_many :clicks
 
   def ShortLink.get_short_code(full_url, length = 5)
-    md5 = Digest::MD5.hexdigest("#{full_url}#{Time.now.to_s}")
-    sha1 = Digest::SHA1.hexdigest("#{full_url}#{md5}")
+    #SHA the link + the time as a float to get a unique hash result.
+    #This is so the chances of generating the same hash and thus the
+    #same short code is (in theory) more difficult
+    sha1 = Digest::SHA1.hexdigest("#{full_url}#{Time.now.to_f}")
     sha1[0, length]
   end
 
