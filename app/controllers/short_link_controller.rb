@@ -1,20 +1,24 @@
 class ShortLinkController < ApplicationController
+  before_filter :get_full_link, :only => [:create]
+
   def new
     @short_link ||= ShortLink.new
   end
 
   def create
-    full_link_string = params[:short_link][:full_link]
-    @short_link = ShortLink.find_or_initialize_by_full_link(full_link_string)
+    @short_link = ShortLink.find_or_initialize_by_full_link(@full_link_string)
+    puts "GOT SHORT LINK"
+    puts "Valid?: #{@short_link.valid?}"
 
-    respond_to do |format|
-      if @short_link.save
-        format.html { redirect_to(show_short_link_path(@short_link.short_code)) }
-        format.js {}
-      else
-        flash[:error] = "Error saving link"
-        render :new
+    if @short_link.valid?
+      respond_to do |format|
+        if @short_link.save
+          format.html { redirect_to(show_short_link_path(@short_link.short_code)) }
+          format.js {}
+        end
       end
+    else
+      render :new
     end
   end
 
@@ -42,5 +46,14 @@ class ShortLinkController < ApplicationController
     end
   end
 
+  private
+
+  def get_full_link
+    @full_link_string = params[:short_link][:full_link]
+    if @full_link_string.empty?
+      flash[:alert] = "Link can't be empty"
+      redirect_to root_path
+    end
+  end
 end
 

@@ -3,7 +3,7 @@
   <% if @short_link.errors.any? %>
     <section class="errors">
     <% @short_link.errors.full_messages.each do |msg| %>
-      <p class="error"><%= msg %></p>
+      <p class="alert"><%= msg %></p>
     <% end %>
     </section>
   <% end %>
