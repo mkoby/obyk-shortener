@@ -7,8 +7,6 @@ class ShortLinkController < ApplicationController
 
   def create
     @short_link = ShortLink.find_or_initialize_by_full_link(@full_link_string)
-    puts "GOT SHORT LINK"
-    puts "Valid?: #{@short_link.valid?}"
 
     if @short_link.valid?
       respond_to do |format|
@@ -24,6 +22,7 @@ class ShortLinkController < ApplicationController
 
   def show
     @short_link = ShortLink.find_by_short_code(params[:short_code])
+    @referrers = @short_link.clicks.find(:all, :select => "referrer_host, count(*) as count", :group => :referrer_host)
 
     respond_to do |format|
       if @short_link

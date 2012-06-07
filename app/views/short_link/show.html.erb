@@ -1,4 +1,14 @@
-<div style="margin-left:auto; margin-right:auto; width:20%; text-align:center;">
-  <h1><%= @short_link.full_short_link %></h1>
+<div style="margin-left:auto; margin-right:auto; text-align:center;">
+  <h1>Stats for: <%= @short_link.full_short_link %></h1>
+  <p>Full Link:<br/><%= link_to @short_link.full_link, @short_link.full_link %></p>
+  <p>Total Hits: <%= @short_link.clicks.count %></p>
+  <% if @short_link.clicks.count > 0 %>
+    <p style="text-align: center; font-size: 22px; font-weight: bold;">Total Hits</p>
+    <p>
+      <% @referrers.each do |r| %>
+        <p><%= r.referrer_host ? r.referrer_host : "Direct" %> - <%= r.count %></p>
+      <% end %>
+    </p>
+  <% end %>
 </div>
 
