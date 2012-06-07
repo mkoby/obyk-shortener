@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ObykShortener</title>
+  <title>Obyk Shortener - Because Shorter Links are More Fun</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+  <header class="header" style="margin-left:auto; margin-right:auto; text-align:center;">
+    <h1>ObyK Shortener</h1>
+    Because shorter links are more fun
+  </header>
+  <section class="flashes">
+    <% flash.each do |key, value| -%>
+       <p class="<%= key %>"><%= value %></p>
+    <% end -%>
+  </section>
 
 <%= yield %>
 

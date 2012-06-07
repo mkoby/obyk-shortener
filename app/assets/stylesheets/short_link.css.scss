@@ -1,3 +1,10 @@
 // Place all the styles related to the ShortLink controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.short-link-display {
+  display: none; //Hide this until we need it
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}

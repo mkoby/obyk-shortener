@@ -1,11 +1,10 @@
 ObykShortener::Application.routes.draw do
   match '/', :to => 'short_link#new', :as => 'root'
   match '/:short_code', :to => 'short_link#access', :as => 'access'
-  match '/:short_code/show', :to => 'short_link#show', :as => 'show_short_link'
+  match '/:short_code/stats', :to => 'short_link#show', :as => 'show_short_link'
 
-  #get "short_link/new"
-  post "short_link/create"
 
+  post 'short_link/create', :as => 'create_short_link'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
