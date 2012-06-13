@@ -7,6 +7,7 @@ class ShortLinkController < ApplicationController
   end
 
   def create
+    @full_link_string = "http://#{@full_link_string}" unless @full_link_string.starts_with?("http://")
     @short_link = ShortLink.find_or_initialize_by_full_link(@full_link_string)
 
     if @short_link.valid?
