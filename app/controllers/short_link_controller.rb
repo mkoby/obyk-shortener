@@ -12,7 +12,7 @@ class ShortLinkController < ApplicationController
       respond_to do |format|
         if @short_link.save
           format.html { redirect_to(show_short_link_path(@short_link.short_code)) }
-          format.js {}
+          format.js
         end
       end
     else

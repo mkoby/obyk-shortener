@@ -1,5 +1,5 @@
 <section class="short-link-form" style="padding-top: 20px; margin-left:auto; margin-right:auto; text-align:center;">
-<%= form_for(@short_link, :url => {:action => 'create'}) do |f| %>
+<%= form_for(@short_link, :url => {:action => 'create'}, :remote => true) do |f| %>
   <% if @short_link.errors.any? %>
     <section class="errors">
     <% @short_link.errors.full_messages.each do |msg| %>
@@ -12,6 +12,6 @@
 <% end %>
 </section>
 
-<section id="short-link-display">
+<section id="short-link-display" style="padding-top: 45px; margin-left: auto; margin-right: auto; text-align: center; font-size: 48px; font-weight: bold;">
 </section>
 
