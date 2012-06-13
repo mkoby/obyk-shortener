@@ -5,8 +5,6 @@ This is a URL Shortener written with Ruby on Rails, for deployment to Heroku. It
 Some things that I would like to eventually add to the shortener
 
 * Add some pretty. I'm not the best designer in the world, if anyone wants to add a bit of styling to the app, I'd appreciate it
-* Use Javascript to display the shortened URL on the create page after submission
-* Add analytics to the SHOW page, so that a user can see where clicks to a short code are coming from
 * Add a check on submission to verify that the URL submitted is valid and returns either a 200 or 302 status code, in the case of a redirect, maybe store the new address and create a short code for it
 
 ## License
