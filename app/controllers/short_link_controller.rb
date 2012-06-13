@@ -1,5 +1,6 @@
 class ShortLinkController < ApplicationController
   before_filter :get_full_link, :only => [:create]
+  before_filter :get_short_link, :only => [:show, :access]
 
   def new
     @short_link ||= ShortLink.new
@@ -21,13 +22,10 @@ class ShortLinkController < ApplicationController
   end
 
   def show
-    @short_link = ShortLink.find_by_short_code(params[:short_code])
     @referrers = @short_link.clicks.find(:all, :select => "referrer_host, count(*) as count", :group => :referrer_host)
 
     respond_to do |format|
-      if @short_link
         format.html { @short_link }
-      end
     end
   end
 
@@ -51,6 +49,15 @@ class ShortLinkController < ApplicationController
     @full_link_string = params[:short_link][:full_link]
     if @full_link_string.empty?
       flash[:alert] = "Link can't be empty"
+      redirect_to root_path
+    end
+  end
+
+  def get_short_link
+    @short_link = ShortLink.find_by_short_code(params[:short_code])
+
+    if @short_link.nil?
+      flash[:alert] = "Short code doesn't exist, sure you have the right one?"
       redirect_to root_path
     end
   end
