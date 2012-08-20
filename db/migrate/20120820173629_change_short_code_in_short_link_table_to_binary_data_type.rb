@@ -5,6 +5,7 @@ class ChangeShortCodeInShortLinkTableToBinaryDataType < ActiveRecord::Migration
       ShortLink.all.each do |s|
         short_code_hash[s.id.to_s] = s.short_code
         s.short_code = nil
+        s.save
       end
 
       t.change :short_code, :binary
