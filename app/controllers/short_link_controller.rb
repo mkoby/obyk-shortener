@@ -7,8 +7,9 @@ class ShortLinkController < ApplicationController
   end
 
   def create
-    @full_link_string = "http://#{@full_link_string}" unless @full_link_string.starts_with?("http://")
-    @short_link = ShortLink.find_or_initialize_by_full_link(@full_link_string)
+    #@full_link_string = "http://#{@full_link_string}" unless @full_link_string.starts_with?("http://") || @full_link_string.starts_with("https://")
+    @short_link = ShortLink.find_or_initialize_by_url_hash(Digest::SHA1.hexdigest(@full_link_string))
+    @short_link.full_link = @full_link_string unless @short_link.full_link
 
     if @short_link.valid?
       respond_to do |format|
@@ -38,8 +39,6 @@ class ShortLinkController < ApplicationController
         referrer_uri = URI(request.referer.to_s)
         Click.create(:short_link => @short_link, :referrer_host => referrer_uri.host, :referrer_path => referrer_uri.path)
         format.html { redirect_to(@short_link.full_link) }
-      else
-        format.html { render :not_found }
       end
     end
   end

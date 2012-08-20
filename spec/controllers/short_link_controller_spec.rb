@@ -56,8 +56,8 @@ describe ShortLinkController do
         get :access, :short_code => 99955
       end
 
-      it "should render not_found template" do
-        response.should render_template(:not_found)
+      it "should show alert message" do
+        flash[:alert].should == "Short code doesn't exist, sure you have the right one?"
       end
 
     end

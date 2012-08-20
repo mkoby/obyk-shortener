@@ -1,4 +1,5 @@
 class ShortLink < ActiveRecord::Base
+  before_create :attach_url_hash
   before_save :attach_short_code
   BASE_URL = "http://obyk.us/"
 
@@ -19,6 +20,11 @@ class ShortLink < ActiveRecord::Base
   end
 
   private
+
+  def attach_url_hash
+    return if self.url_hash
+    self.url_hash = Digest::SHA1.hexdigest(self.full_link)
+  end
 
   def attach_short_code
     return if self.short_code
