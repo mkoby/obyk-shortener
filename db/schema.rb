@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120820164538) do
+ActiveRecord::Schema.define(:version => 20120820173850) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "short_link_id"
@@ -25,12 +25,13 @@ ActiveRecord::Schema.define(:version => 20120820164538) do
 
   create_table "short_links", :force => true do |t|
     t.string   "full_link"
-    t.string   "short_code"
+    t.binary   "short_code", :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.binary   "url_hash"
   end
 
+  add_index "short_links", ["short_code"], :name => "index_short_links_on_short_code"
   add_index "short_links", ["url_hash"], :name => "index_short_links_on_url_hash"
 
 end
