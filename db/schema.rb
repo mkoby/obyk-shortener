@@ -17,17 +17,17 @@ ActiveRecord::Schema.define(:version => 20120820173850) do
     t.integer  "short_link_id"
     t.string   "referrer_host"
     t.string   "referrer_path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "clicks", ["short_link_id"], :name => "index_clicks_on_short_link_id"
 
   create_table "short_links", :force => true do |t|
     t.string   "full_link"
-    t.binary   "short_code", :limit => 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.binary   "short_code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.binary   "url_hash"
   end
 
