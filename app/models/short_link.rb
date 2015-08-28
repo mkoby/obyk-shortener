@@ -1,7 +1,7 @@
 class ShortLink < ActiveRecord::Base
   before_create :attach_url_hash
   before_save :attach_short_code
-  BASE_URL = "http://obyk.herokuapp.com/"
+  BASE_URL = "http://obyk.us/"
 
   validates_presence_of :full_link, :message => "You must provide a URL to shorten"
   validates_format_of :full_link, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix, :message => "Link must begin with 'http://' or 'https://'. Example: http://obyk.us"
